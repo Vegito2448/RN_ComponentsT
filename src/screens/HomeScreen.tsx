@@ -10,11 +10,6 @@ import { styles } from '../themes/AppTheme';
 
 
 const HomeScreen = () => {
-
-
-
-
-
   return (
     <View style={{
       ...styles.globalMargin,

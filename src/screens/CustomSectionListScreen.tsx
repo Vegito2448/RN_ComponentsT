@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { SectionList, Text, View } from 'react-native';
 import HeaderTitle from '../components/HeaderTitle';
 import ItemSeparator from '../components/ItemSeparator';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { styles } from '../themes/AppTheme';
 
 
@@ -27,20 +28,37 @@ const casas: Casas[] = [
 
 
 const CustomSectionListScreen = () => {
+  const { theme: { colors: { primary, text, background }, dividerColor, dark } } = useContext(ThemeContext);
   return (
     <View style={{ ...styles.globalMargin, flex: 1 }}>
       <SectionList
         sections={casas}
-        renderItem={({ item }) => <View><Text>{item}</Text></View>}
+        renderItem={({ item }) => <View style={{
+          backgroundColor: background
+        }}>
+          <Text style={{
+            color: text
+          }}>
+            {item}
+          </Text>
+        </View>
+        }
         keyExtractor={(item, index) => item + index}
         ListHeaderComponent={() => <HeaderTitle title='Section List' />}
         ListFooterComponent={() =>
-          <View style={{ marginBottom: 50 }}>
+          <View style={{
+            marginBottom: 50,
+            backgroundColor: background
+          }}>
             <HeaderTitle title={`Total de casas: ${casas.length}`} />
           </View>
         }
         renderSectionHeader={({ section: { casa } }) => (
-          <View style={{ backgroundColor: 'white' }}><HeaderTitle title={casa} /></View>
+          <View style={{
+            backgroundColor: background
+          }}>
+            <HeaderTitle title={casa} />
+          </View>
         )}
         renderSectionFooter={({ section }) => (
           <HeaderTitle title={`Total: ${section.data.length}`} />
@@ -48,7 +66,6 @@ const CustomSectionListScreen = () => {
         // ItemSeparatorComponent={ItemSeparator}
         SectionSeparatorComponent={ItemSeparator}
         showsVerticalScrollIndicator={false}
-
         stickySectionHeadersEnabled
       />
     </View>

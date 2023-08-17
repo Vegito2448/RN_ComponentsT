@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Animated, Button, Easing, StyleSheet, View } from 'react-native';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 import useAnimation from '../hooks/useAnimation';
 
 const Animation101Screen = () => {
   const { fadeIn, fadeOut, opacity, position, startMovingPosition } = useAnimation();
 
-
+  const { theme: { dividerColor, colors } } = useContext(ThemeContext)
 
   return (
     <View style={styles.container}>
       <Animated.View style={{
         ...styles.redBox,
+        backgroundColor: colors.primary,
         opacity,
         transform: [{
           translateY: position,
@@ -20,8 +22,14 @@ const Animation101Screen = () => {
       <Button title='fade In' onPress={() => {
         fadeIn();
         startMovingPosition(-100, 700, Easing.bounce);
-      }} />
-      <Button title='fade Out' onPress={fadeOut} />
+      }}
+        color={colors.primary}
+      />
+      <Button
+        title='fade Out'
+        onPress={fadeOut}
+        color={colors.primary}
+      />
     </View>
   );
 };

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import CustomSwitch from '../components/CustomSwitch';
 import HeaderTitle from '../components/HeaderTitle';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { useForm } from '../hooks/useForm';
 import { styles } from '../themes/AppTheme';
 
 const TextInputScreen = () => {
   const { form, onChange, ...state } = useForm({ name: '', email: '', phone: '', isSubscribed: false });
+  const { theme: { colors: { primary, text }, dividerColor, dark } } = useContext(ThemeContext);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -16,25 +18,42 @@ const TextInputScreen = () => {
           <View style={styles.globalMargin}>
             <HeaderTitle title='Text Inputs' />
             <TextInput
-              style={stylesScreen.inputStyle}
+              style={{
+                ...stylesScreen.inputStyle,
+                borderColor: dividerColor,
+                color: text
+              }}
+              placeholderTextColor={dividerColor}
+              keyboardAppearance={dark ? 'dark' : 'light'}
               placeholder='Name'
               autoCorrect={false} autoCapitalize='words'
               onChangeText={(value) => onChange(value, 'name')}
               value={form.name}
             />
             <TextInput
-              style={stylesScreen.inputStyle}
+              style={{
+                ...stylesScreen.inputStyle,
+                borderColor: dividerColor,
+                color: text
+              }}
+              placeholderTextColor={dividerColor}
+              keyboardAppearance={dark ? 'dark' : 'light'}
               keyboardType='email-address'
               placeholder='Email'
               autoCapitalize='none'
               onChangeText={(value) => onChange(value, 'email')}
               value={form.email}
-              keyboardAppearance='dark'
             />
             <Text style={styles.title}>Subscribe Me</Text>
             <CustomSwitch isOn={form.isSubscribed} onChange={(value) => onChange(value, 'isSubscribed')} />
             <TextInput
-              style={stylesScreen.inputStyle}
+              style={{
+                ...stylesScreen.inputStyle,
+                borderColor: dividerColor,
+                color: text
+              }}
+              placeholderTextColor={dividerColor}
+              keyboardAppearance={dark ? 'dark' : 'light'}
               placeholder='Phone'
               keyboardType='phone-pad'
               onChangeText={(value) => onChange(value, 'phone')}

@@ -1,23 +1,32 @@
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 import AlertScreen from '../screens/AlertScreen';
 import Animation101Screen from '../screens/Animation101Screen';
 import Animation102Screen from '../screens/Animation102Screen';
+import ChangeThemeScreen from '../screens/ChangeThemeScreen';
 import CustomSectionListScreen from '../screens/CustomSectionListScreen';
 import HomeScreen from '../screens/HomeScreen';
 import InfiniteScrollScreen from '../screens/InfiniteScrollScreen';
 import ModalScreen from '../screens/ModalScreen';
 import PullToRefreshScreen from '../screens/PullToRefreshScreen';
+import SlidesScreen from '../screens/SlidesScreen';
 import SwitchScreen from '../screens/SwitchScreen';
 import TextInputScreen from '../screens/TextInputScreen';
 
 const Stack = createStackNavigator();
 
 export default function Navigator() {
+  const { theme } = useContext(ThemeContext)
   return (
+    <NavigationContainer
+      theme={theme}
+    >
     <Stack.Navigator screenOptions={{
       headerShown: false,
       cardStyle: {
-        backgroundColor: 'white'
+        // backgroundColor: 'white'
       }
     }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
@@ -30,6 +39,9 @@ export default function Navigator() {
       <Stack.Screen name="CustomSectionListScreen" component={CustomSectionListScreen} />
       <Stack.Screen name="ModalScreen" component={ModalScreen} />
       <Stack.Screen name="InfiniteScrollScreen" component={InfiniteScrollScreen} />
+        <Stack.Screen name="SlidesScreen" component={SlidesScreen} />
+        <Stack.Screen name="ChangeThemeScreen" component={ChangeThemeScreen} />
     </Stack.Navigator>
+    </NavigationContainer>
   );
 }
